@@ -61,6 +61,9 @@
       var holdingSpan = document.getElementById('holding');
       if(holding != "none"){
         holdingSpan.innerHTML = numOptions[holding].num;
+	if(numOptions[holding].num == 16) {
+	   holdingSpan.innerHTML = "17OF";
+	}
       }
       else {
         holdingSpan.innerHTML = "none";
@@ -92,12 +95,10 @@
     for(var i = 0; i < 3; i++) {
       for(var j = 0; j < 10; j++) {
         var num = i * 10 + j + 1;
-        if(num != 4 && num != 9 && num != 14 && num != 16 && num != 29 && num != 30) {
+        if(num != 4 && num != 9 && num != 14 && num != 29 && num != 30) {
 	  numOptions.push(new numOption(j, i + 7, num));
           numOptionsNums.push(num);
       	}
-	  numOptions.push(new numOption(5, 8, 18));
-          numOptionsNums.push(18);
       }
     }
 
@@ -135,7 +136,11 @@
         ctx.fillRect(numOptions[i].x * unit, numOptions[i].y * unit, numOptions[i].width * unit, numOptions[i].height * unit);
         ctx.fillStyle = numOptions[i].textColor;
         ctx.textAlign = "center";
-        ctx.fillText(numOptions[i].num, (numOptions[i].x + numOptions[i].width/2) * unit, (numOptions[i].y + numOptions[i].height * 0.7) * unit);
+	if(numOptions[i].num == 16) {
+	   ctx.fillText("17OF", (numOptions[i].x + numOptions[i].width/2) * unit, (numOptions[i].y + numOptions[i].height * 0.7) * unit);
+	} else {
+           ctx.fillText(numOptions[i].num, (numOptions[i].x + numOptions[i].width/2) * unit, (numOptions[i].y + numOptions[i].height * 0.7) * unit);
+      	}
       }
     }
 
@@ -269,6 +274,9 @@
                 waitingBus = null;
               }
               busOptions[i].num = numOptions[holding].num;
+	      if(numOptions[holding].num == 16) {
+		 busOptions[i].num = "17OF";
+	      }
               numOptions[holding].color = "lightgray";
               numOptions[holding].textColor = "black";
 
